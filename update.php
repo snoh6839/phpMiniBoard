@@ -83,7 +83,12 @@ if ($http_method === "GET") {
 
                     <ul class="btn-wrap text-right">
                         <li>
-                            <button id="redirect" type="submit" class="btn btn01"> <a href="/detail.php?board_no=<?php echo $result_info["board_no"] ?>">저장</a></button>
+                            <button id="redirect" type="submit" class="btn btn01"> 저장 </button>
+                      
+                         
+                            <?php
+                            header('Location: /detail.php?board_no='.$result_info["board_no"]);
+                            ?>
 
                         </li>
                         <li>
