@@ -106,7 +106,7 @@ if ($http_method === "GET") {
                             ?>
                         </li>
                         <li>
-                            <a class="btn btn01" href="/board/detail.php?board_no=<?php echo $result_info["board_no"] ?>">취소</button>
+                            <a class="btn btn01" href="/board/detail.php?board_no=<?php echo $result_info["board_no"] ?>">취소</a>
                         </li>
                         <li>
                             <a class="btn btn01" href="/board/index.php">목록</a>

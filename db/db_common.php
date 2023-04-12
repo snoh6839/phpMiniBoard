@@ -169,6 +169,7 @@ function delete_board_info_no(&$param_arr)
     . " board_info "
     ." SET "
     ." del_flag = '1' "
+    ." ,delete_date = Now() "
     ." WHERE "
     ." board_no = :board_no ";
 
