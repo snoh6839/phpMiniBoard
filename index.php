@@ -4,7 +4,7 @@
 // include_once( URL_DB );
 
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
-define("URL_DB", DOC_ROOT . "db/db_common.php");
+define("URL_DB", DOC_ROOT . "board/db/db_common.php");
 include_once(URL_DB);
 
 if (array_key_exists("page_num", $_GET)) {
@@ -13,7 +13,7 @@ if (array_key_exists("page_num", $_GET)) {
     $page = 1;
 }
 
-$limit_num = 8;
+$limit_num = 5;
 $result_cnt = select_board_info_cnt();
 // $offset = ($page > 1) ? ($page_limit * ($page - 1)) : 0;
 // $pages = ($result_cnt % $page_limit == 0) ? ($result_cnt / $limit_num) : (round($result_cnt / $limit_num, 0) + 1);
@@ -84,7 +84,7 @@ $result_pasing = select_board_info_paging($arr_prepare);
                                         </td>
                                         <td class="text-left">
                                             <div class="c-board-title-wrap">
-                                                <a href="/detail.php?board_no=<?php echo $recode["board_no"] ?>" class="c-board-title">
+                                                <a href="/board/detail.php?board_no=<?php echo $recode["board_no"] ?>" class="c-board-title">
                                                     <?php
                                                     echo $recode["board_title"]
                                                     ?>
@@ -115,17 +115,17 @@ $result_pasing = select_board_info_paging($arr_prepare);
                         for ($i = 1; $i <= $num_pages; $i++) {
                             if ($i === (int)$page) {
                         ?>
-                                <li><a href="index.php?page_num=<?php echo $i ?>" class="page-icon active"><?php echo $i ?></a></li>
+                                <li><a href="/board/index.php?page_num=<?php echo $i ?>" class="page-icon active"><?php echo $i ?></a></li>
                             <?php
                             } else {
                             ?>
-                                <li><a href="index.php?page_num=<?php echo $i ?>" class="page-icon"><?php echo $i ?></a></li>
+                                <li><a href="/board/index.php?page_num=<?php echo $i ?>" class="page-icon"><?php echo $i ?></a></li>
                             <?php
                             }
                         }
                         if ((int)$page < $num_pages) {
                             ?>
-                            <li><a href='index.php?page_num=<?php echo $nextPage; ?>'>Next</a></li>
+                            <li><a href='/board/index.php?page_num=<?php echo $nextPage; ?>'>Next</a></li>
                         <?php } else if ((int)$page = $num_pages) { ?>
                             <script>
                                 customAlert.alert('마지막페이지입니다.')

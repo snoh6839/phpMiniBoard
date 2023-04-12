@@ -1,6 +1,6 @@
 <?php
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
-define("URL_DB", DOC_ROOT . "db/db_common.php");
+define("URL_DB", DOC_ROOT . "board/db/db_common.php");
 include_once(URL_DB);
 
 $http_method = $_SERVER["REQUEST_METHOD"];
@@ -83,11 +83,16 @@ if ($http_method === "GET") {
 
                     <ul class="btn-wrap text-right">
                         <li>
-                            <button id="redirect" type="submit" class="btn btn01"> <a href="/detail.php?board_no=<?php echo $result_info["board_no"] ?>">저장</a></button>
-
+                            <script type="text/javaScript">
+                                function moveDetail(){
+                                location.href = "/board/detail.php?<?php echo $result_info["board_no"] ?>";
+                                }
+                            </script>
+                            <button type="submit" name="save_btn" class="btn btn01" onclick="moveDetail();">저장</button>
                         </li>
                         <li>
-                            <a class="btn btn01" href="/index.php">목록</a>
+                            <a class="btn btn01" href="/board/index.php">목록</a>
+
                         </li>
 
                     </ul>

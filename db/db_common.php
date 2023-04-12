@@ -162,14 +162,44 @@ function update_board_info_no( &$param_arr )
     // return $result_cnt;
 }
 
+function delete_board_info_no(&$param_no)
+{
+    $sql = 
+    " UPDATE "
+    . " board_info "
+    ." SET "
+    ." del_flag = '1' "
+    ." WHERE "
+    ." board_no = :board_no ";
+
+    $arr_prepare = 
+    array(":board_no" => $param_no["board_no"]);
+
+    $conn = null;
+    try {
+        db_conn($conn);
+        $conn->beginTransaction();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($arr_prepare);
+        $result_cnt = $stmt->rowCount();
+        $conn->commit();
+    } catch (EXCEPTION $e) {
+        $conn->rollback();
+        return $e->getMessage();
+    } finally {
+        $conn = null;
+    }
+
+    //return $result_cnt;
+}
+
+
 
 
 //TODO : test start
 // $arr =  array(
-//     "board_no" => 1
-//     ,"board_title" => "test122"
-//     ,"board_cont" => "test_content122"
+//     "board_no" => 25
 // );
-// echo update_board_info_no( $arr );
+// echo delete_board_info_no($arr);
 //TODO : test end
 ?>

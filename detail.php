@@ -1,6 +1,6 @@
 <?php
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
-define("URL_DB", DOC_ROOT . "db/db_common.php");
+define("URL_DB", DOC_ROOT . "board/db/db_common.php");
 include_once(URL_DB);
 
 $http_method = $_SERVER["REQUEST_METHOD"];
@@ -72,13 +72,28 @@ if ($http_method === "GET") {
 
                     <ul class="btn-wrap text-right">
                         <li>
-                            <a class="btn btn01" href="/update.php?board_no=<?php echo $result_info["board_no"] ?>">수정</a>
+                            <a class="btn btn01" href="/board/update.php?board_no=<?php echo $result_info["board_no"] ?>">수정</a>
                         </li>
                         <li>
-                            <a class="btn btn01" href="">삭제</a>
+                            <form method="post">
+                                <input type="hidden" name="board_no_post" value="<?php echo $result_info["board_no"]; ?>">
+                                <button type="submit" name="delete_btn" class="btn btn01">삭제</button>
+                            </form>
+                            <?php
+                            if (isset($_POST["delete_btn"])) {
+                                $result = delete_board_info_no($_POST["board_no_post"]);
+                                if ($result) {
+                                    echo "<script>customAlert.alert('삭제되었습니다.');</script>";
+                                    echo "<script>location.href = '/board/index.php';</script>";
+                                } else {
+                                    echo "<script>customAlert.alert('삭제에 실패했습니다.');</script>";
+                                }
+                            }
+                            ?>
+
                         </li>
                         <li>
-                            <a class="btn btn01" href="/index.php">목록</a>
+                            <a class="btn btn01" href="/board/index.php">목록</a>
                         </li>
 
                     </ul>
