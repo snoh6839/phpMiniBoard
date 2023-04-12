@@ -15,8 +15,6 @@ if (array_key_exists("page_num", $_GET)) {
 
 $limit_num = 5;
 $result_cnt = select_board_info_cnt();
-// $offset = ($page > 1) ? ($page_limit * ($page - 1)) : 0;
-// $pages = ($result_cnt % $page_limit == 0) ? ($result_cnt / $limit_num) : (round($result_cnt / $limit_num, 0) + 1);
 $offset = ($page * $limit_num) - $limit_num;
 $num_pages = ceil((int)$result_cnt[0]["cnt"] / $limit_num);
 // echo $num_pages;
@@ -38,10 +36,10 @@ $result_pasing = select_board_info_paging($arr_prepare);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자유 게시판</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/board/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/board/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/board/favicon-16x16.png">
+    <link rel="manifest" href="/board/site.webmanifest">
     <link rel="stylesheet" href="./css/default.css">
     <script src="./js/script.js"></script>
 </head>
