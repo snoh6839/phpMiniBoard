@@ -20,6 +20,8 @@ if ($http_method === "GET") {
         );
 
     $result_info_change = update_board_info_no($arr_info);
+    // header("Location: board_detail.php?board_no=" . $arr_post["board_no"]);
+    // exit();
     $result_info = select_board_info_no($arr_post["board_no"]);
 }
 
@@ -47,7 +49,7 @@ if ($http_method === "GET") {
     <div class="content-wrap">
         <div class="title">
             <div class="page-title">
-                <h3>상세 내용 수정</h3>
+                <h3><?php echo $result_info["board_no"] ?>번 글 상세 내용 수정</h3>
                 <p></p>
             </div>
         </div>
@@ -83,7 +85,7 @@ if ($http_method === "GET") {
 
                     <ul class="btn-wrap text-right">
                         <li>
-                            <button type="submit" name="save_btn" class="btn btn01" onclick="moveDetail();">저장</button>
+                            <button type="submit" name="save_btn" class="btn btn01">저장</button>
                             <?php
                             if (isset($_POST["save_btn"])) {
                                 if ($result_info_change = 1) {
@@ -104,10 +106,11 @@ if ($http_method === "GET") {
                             ?>
                         </li>
                         <li>
-                            <a class="btn btn01" href="/board/index.php">목록</a>
-
+                            <a class="btn btn01" href="/board/detail.php?board_no=<?php echo $result_info["board_no"] ?>">취소</button>
                         </li>
-
+                        <li>
+                            <a class="btn btn01" href="/board/index.php">목록</a>
+                        </li>
                     </ul>
                 </div>
             </div>

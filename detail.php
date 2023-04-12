@@ -4,6 +4,7 @@ define("URL_DB", DOC_ROOT . "board/db/db_common.php");
 include_once(URL_DB);
 
 $http_method = $_SERVER["REQUEST_METHOD"];
+$prevPage = $_SERVER["HTTP_REFERER"];
 
 if ($http_method === "GET") {
     $board_no = 1;
@@ -20,10 +21,10 @@ if ($http_method === "GET") {
         );
 
     $result_info_delete = delete_board_info_no($arr_info);
+    // header("Location: board_detail.php?board_no=". $arr_post["board_no"]);
+    // exit();
     $result_info = select_board_info_no($arr_post["board_no"]);
 }
-
-
 
 ?>
 
@@ -47,7 +48,7 @@ if ($http_method === "GET") {
     <div class="content-wrap">
         <div class="title">
             <div class="page-title">
-                <h3>상세 내용</h3>
+                <h3>상세 내용 - <?php echo $result_info["board_no"] ?>번 글</h3>
                 <p></p>
             </div>
         </div>
