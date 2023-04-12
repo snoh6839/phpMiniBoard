@@ -60,7 +60,7 @@ if ($http_method === "GET") {
                         <dl class="board-write-box board-write-box-v01">
                             <dt>제목</dt>
                             <dd>
-                                <input type="text" name="board_title" value="<?php $result_info["board_title"] ?>" placeholder='제목을 여기에 작성해 주세요.' onblur="this.placeholder='제목을 여기에 작성해 주세요.'" onfocus="this.placeholder=' '">
+                                <input required type="text" name="board_title" value="<?php $result_info["board_title"] ?>" placeholder='제목을 여기에 작성해 주세요.' onblur="this.placeholder='제목을 여기에 작성해 주세요.'" onfocus="this.placeholder=' '">
                             </dd>
                         </dl>
                         <dl class="board-write-box board-write-box-v02">
@@ -74,7 +74,7 @@ if ($http_method === "GET") {
                             <dd>
                                 <div>
                                     <p>
-                                        <input type="text" name="board_cont" value="<?php $result_info["board_cont"] ?>">
+                                        <input required type="text" name="board_cont" value="<?php $result_info["board_cont"] ?>">
                                     </p>
                                 </div>
                             </dd>
