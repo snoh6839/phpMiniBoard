@@ -45,7 +45,7 @@ if ($http_method === "GET") {
         <div class="content">
             <input type="hidden" name="boardMode" value="view">
             <div class="ko board view ys-board">
-                <div class="board-wrap">
+                <form class="board-wrap" method="post">
                     <input type="hidden" name="board_no" value="<?php echo $result_info["board_no"] ?>">
                     <div class="board-write-wrap">
                         <dl class="board-write-box board-write-box-v01">
@@ -75,21 +75,29 @@ if ($http_method === "GET") {
                             <a class="btn btn01" href="/board/update.php?board_no=<?php echo $result_info["board_no"] ?>">수정</a>
                         </li>
                         <li>
-                            <form method="post">
-                                <input type="hidden" name="board_no_post" value="<?php echo $result_info["board_no"]; ?>">
-                                <button type="submit" name="delete_btn" class="btn btn01">삭제</button>
-                            </form>
+                            <button type="submit" name="delete_btn" class="btn btn01">삭제</button>
                             <?php
                             if (isset($_POST["delete_btn"])) {
-                                $result = delete_board_info_no($_POST["board_no_post"]);
+                                $result = delete_board_info_no($_POST["board_no"]);
                                 if ($result) {
-                                    echo "<script>customAlert.alert('삭제되었습니다.');</script>";
-                                    echo "<script>location.href = '/board/index.php';</script>";
+                            ?>
+                                    <script>
+                                        customAlert.alert('삭제되었습니다.')
+                                    </script>
+                                    <script>
+                                        location.href = '/board/index.php'
+                                    </script>
+                                <?php
                                 } else {
-                                    echo "<script>customAlert.alert('삭제에 실패했습니다.');</script>";
+                                ?>
+                                    <script>
+                                        customAlert.alert('삭제에 실패했습니다.')
+                                    </script>
+                            <?php
                                 }
                             }
                             ?>
+
 
                         </li>
                         <li>
@@ -97,7 +105,7 @@ if ($http_method === "GET") {
                         </li>
 
                     </ul>
-                </div>
+                </form>
             </div>
         </div>
     </div>

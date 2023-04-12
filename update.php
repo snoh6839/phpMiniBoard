@@ -83,12 +83,25 @@ if ($http_method === "GET") {
 
                     <ul class="btn-wrap text-right">
                         <li>
-                            <script type="text/javaScript">
-                                function moveDetail(){
-                                location.href = "/board/detail.php?<?php echo $result_info["board_no"] ?>";
-                                }
-                            </script>
                             <button type="submit" name="save_btn" class="btn btn01" onclick="moveDetail();">저장</button>
+                            <?php
+                            if (isset($_POST["save_btn"])) {
+                                if ($result_info_change = 1) {
+                            ?>
+                                    <script>
+                                        customAlert.alert('수정되었습니다.');
+                                        location.href = '/board/detail.php?board_no=<?php echo $_POST["board_no"] ?>';
+                                    </script>
+                                <?php
+                                } else {
+                                ?>
+                                    <script>
+                                        customAlert.alert('수정에 실패했습니다.');
+                                    </script>
+                            <?php
+                                }
+                            }
+                            ?>
                         </li>
                         <li>
                             <a class="btn btn01" href="/board/index.php">목록</a>
