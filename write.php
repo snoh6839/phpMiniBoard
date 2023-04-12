@@ -19,7 +19,7 @@ if ($http_method === "GET") {
             "board_title" => $arr_post["board_title"], "board_cont" => $arr_post["board_cont"], "board_no" => $arr_post["board_no"]
         );
 
-    $result_info_change = update_board_info_no($arr_info);
+    $result_info_change = write_board_info($arr_info);
     $result_info = select_board_info_no($arr_post["board_no"]);
 }
 
@@ -34,7 +34,7 @@ if ($http_method === "GET") {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>자유 게시판 - 수정 페이지</title>
+    <title>자유 게시판 - 작성 페이지</title>
     <link rel="apple-touch-icon" sizes="180x180" href="./favi/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favi/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favi/favicon-16x16.png">
@@ -47,7 +47,7 @@ if ($http_method === "GET") {
     <div class="content-wrap">
         <div class="title">
             <div class="page-title">
-                <h3>상세 내용 수정</h3>
+                <h3>새 글 작성하기</h3>
                 <p></p>
             </div>
         </div>
@@ -55,26 +55,26 @@ if ($http_method === "GET") {
             <input type="hidden" name="boardMode" value="view">
             <div class="ko board view ys-board">
                 <div class="board-wrap">
-                    <input type="hidden" name="board_no" value="<?php echo $result_info["board_no"] ?>">
+                    <input type="hidden" name="board_no" value="<?php $result_info["board_no"] ?>">
                     <div class="board-write-wrap">
                         <dl class="board-write-box board-write-box-v01">
                             <dt>제목</dt>
                             <dd>
-                                <input type="text" name="board_title" value="<?php echo $result_info["board_title"] ?>">
+                                <input type="text" name="board_title" value="<?php $result_info["board_title"] ?>" placeholder='제목을 여기에 작성해 주세요.' onblur="this.placeholder='제목을 여기에 작성해 주세요.'" onfocus="this.placeholder=' '">
                             </dd>
                         </dl>
                         <dl class="board-write-box board-write-box-v02">
                             <dt>
                                 작성일
                             </dt>
-                            <dd><?php echo $result_info["create_date"] ?></dd>
+                            <dd>작성일은 자동으로 현재로 설정됩니다.</dd>
                         </dl>
                         <dl class="board-write-box board-write-box-v03">
                             <dt class="hide replyNone">게시글 내용</dt>
                             <dd>
                                 <div>
                                     <p>
-                                        <input type="text" name="board_cont" value="<?php echo $result_info["board_cont"] ?>">
+                                        <input type="text" name="board_cont" value="<?php $result_info["board_cont"] ?>">
                                     </p>
                                 </div>
                             </dd>
@@ -83,20 +83,19 @@ if ($http_method === "GET") {
 
                     <ul class="btn-wrap text-right">
                         <li>
-                            <button type="submit" name="save_btn" class="btn btn01" onclick="moveDetail();">저장</button>
+                            <button type="submit" name="save_btn" class="btn btn01">저장</button>
                             <?php
                             if (isset($_POST["save_btn"])) {
                                 if ($result_info_change = 1) {
                             ?>
                                     <script>
-                                        customAlert.alert('수정되었습니다.');
-                                        location.href = '/board/detail.php?board_no=<?php echo $_POST["board_no"] ?>';
+                                        location.href = '/board/index.php';
                                     </script>
                                 <?php
                                 } else {
                                 ?>
                                     <script>
-                                        customAlert.alert('수정에 실패했습니다.');
+                                        customAlert.alert('작성에 실패했습니다.');
                                     </script>
                             <?php
                                 }

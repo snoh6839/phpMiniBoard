@@ -162,7 +162,7 @@ function update_board_info_no( &$param_arr )
     // return $result_cnt;
 }
 
-function delete_board_info_no(&$param_no)
+function delete_board_info_no(&$param_arr)
 {
     $sql = 
     " UPDATE "
@@ -173,7 +173,47 @@ function delete_board_info_no(&$param_no)
     ." board_no = :board_no ";
 
     $arr_prepare = 
-    array(":board_no" => $param_no["board_no"]);
+    array(":board_no" => $param_arr["board_no"]);
+
+    $conn = null;
+    try {
+        db_conn($conn);
+        $conn->beginTransaction();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($arr_prepare);
+        $result_cnt = $stmt->rowCount();
+        $conn->commit();
+    } catch ( EXCEPTION $e) {
+        $conn->rollback();
+        return $e->getMessage();
+    } finally {
+        $conn = null;
+    }
+
+    return $result_cnt;
+}
+
+function write_board_info(&$param_arr)
+{
+    $sql =
+        " INSERT INTO "
+        . " board_info "
+        . " ( "
+        . " board_title "
+        . ", board_cont "
+        . ", create_date "
+        . " ) VALUES "
+        . " ( "
+        . " :board_title "
+        . " , :board_cont "
+        . " , Now() "
+        . " ) ";
+
+    $arr_prepare =
+        array(
+            ":board_title" => $param_arr["board_title"]
+            , ":board_cont" => $param_arr["board_cont"]
+        );
 
     $conn = null;
     try {
@@ -190,16 +230,16 @@ function delete_board_info_no(&$param_no)
         $conn = null;
     }
 
-    //return $result_cnt;
+    // return $result_cnt;
 }
-
-
 
 
 //TODO : test start
 // $arr =  array(
-//     "board_no" => 25
+//     "board_title" => "새로운 글입니다."
+//     , "board_cont" => "새로운 글입니다."
 // );
-// echo delete_board_info_no($arr);
+// echo write_board_info($arr);
 //TODO : test end
+
 ?>

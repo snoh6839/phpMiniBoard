@@ -480,3 +480,16 @@ dl.board-write-box:after {
     display: block;
     overflow: hidden;
 }
+
+input[type=text] {
+    border: none;
+    outline: none;
+    accent-color: none;
+    background-color: transparent;
+}
+
+input[name=board_cont] {
+    height: 50vh;
+    width: 100%;
+    background-color: #e7e7e7;
+}

@@ -36,10 +36,10 @@ $result_pasing = select_board_info_paging($arr_prepare);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자유 게시판</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/board/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/board/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/board/favicon-16x16.png">
-    <link rel="manifest" href="/board/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./favi/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favi/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favi/favicon-16x16.png">
+    <link rel="manifest" href="./favi/site.webmanifest">
     <link rel="stylesheet" href="./css/default.css">
     <script src="./js/script.js"></script>
 </head>
@@ -132,7 +132,7 @@ $result_pasing = select_board_info_paging($arr_prepare);
                     </ul>
                     <ul class="btn-wrap text-right">
                         <li>
-                            <a class="btn btn01" href="#">글쓰기</a>
+                            <a class="btn btn01" href="/board/write.php">글쓰기</a>
                         </li>
                     </ul>
                 </div>

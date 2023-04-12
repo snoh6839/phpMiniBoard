@@ -13,8 +13,17 @@ if ($http_method === "GET") {
 
     $result_info = select_board_info_no($board_no);
 } else {
-    print_r($_POST);
+    $arr_post = $_POST;
+    $arr_info =
+        array(
+            "board_no" => $arr_post["board_no"]
+        );
+
+    $result_info_delete = delete_board_info_no($arr_info);
+    $result_info = select_board_info_no($arr_post["board_no"]);
 }
+
+
 
 ?>
 
@@ -26,10 +35,10 @@ if ($http_method === "GET") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자유 게시판 - 상세 내용</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/board/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/board/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/board/favicon-16x16.png">
-    <link rel="manifest" href="/board/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./favi/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favi/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favi/favicon-16x16.png">
+    <link rel="manifest" href="./favi/site.webmanifest">
     <link rel="stylesheet" href="./css/default.css">
     <script src="./js/script.js"></script>
 </head>
@@ -78,13 +87,10 @@ if ($http_method === "GET") {
                             <button type="submit" name="delete_btn" class="btn btn01">삭제</button>
                             <?php
                             if (isset($_POST["delete_btn"])) {
-                                $result = delete_board_info_no($_POST["board_no"]);
-                                if ($result) {
+                                if ($result_info_delete = 1) {
                             ?>
                                     <script>
-                                        customAlert.alert('삭제되었습니다.')
-                                    </script>
-                                    <script>
+                                        // customAlert.alert('삭제되었습니다.')
                                         location.href = '/board/index.php'
                                     </script>
                                 <?php
