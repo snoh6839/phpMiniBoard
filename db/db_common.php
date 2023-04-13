@@ -234,6 +234,47 @@ function write_board_info(&$param_arr)
     // return $result_cnt;
 }
 
+function search_board_info( &$param_arr ){
+    $sql =
+        " SELECT "
+            ." board_no "
+            ." , board_title "
+            ." , create_date "
+        ." FROM "
+            ." board_info "
+        ." WHERE "
+            ." del_flag = '0' "
+            ." AND (board_title LIKE :search_query OR board_cont LIKE :search_query) "
+        ." ORDER BY "
+            ." board_no DESC "
+        ." LIMIT :limit_num OFFSET :offset "
+        ;
+    
+    $search_query = "%".$param_arr["search_query"]."%";
+    
+    $arr_prepare =
+        array(
+            ":search_query" => $search_query
+            ,":limit_num" => $param_arr["limit_num"]
+            ,":offset" => $param_arr["offset"]
+        );
+    
+    try{
+        db_conn( $conn );
+        $stmt = $conn->prepare( $sql );
+        $stmt->execute( $arr_prepare );
+        $result = $stmt->fetchAll();
+
+    } catch (EXCEPTION $e) {
+        return $e->getMessage();
+        // return false;
+    } finally {
+        $conn = null;
+    }
+
+    return $result;
+}
+
 
 //TODO : test start
 // $arr =  array(
