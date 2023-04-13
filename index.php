@@ -5,6 +5,7 @@
 
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
 define("URL_DB", DOC_ROOT . "board/db/db_common.php");
+define("URL_HEADER", DOC_ROOT . "board/header.php");
 include_once(URL_DB);
 
 if (array_key_exists("page_num", $_GET)) {
@@ -45,6 +46,9 @@ $result_pasing = select_board_info_paging($arr_prepare);
 </head>
 
 <body>
+    <header>
+        <?php include_once(URL_HEADER) ?>
+    </header>
     <div class="content-wrap">
         <div class="title">
             <div class="page-title">
@@ -139,7 +143,10 @@ $result_pasing = select_board_info_paging($arr_prepare);
             </div>
         </div>
     </div>
-
+    <footer>
+        &copy; All Rights Deserved.
+        <br> Designed by Subin Noh.
+    </footer>
 </body>
 
 </html>

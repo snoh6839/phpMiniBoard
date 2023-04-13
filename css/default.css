@@ -9,6 +9,21 @@
     cursor: url(../img/cursor.cur), auto;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: red;
+}
+
 a:link, a:visited, a:hover {
     color: #fff;
 }
@@ -17,12 +32,138 @@ body {
     font-weight: 400;
     font-size: 15px;
     color: #333;
-    width: 100vw;
-    height: 100vh;
+    scroll-behavior: smooth;
+}
+
+header {
+    border-top: 5px solid #1459a6;
+    background-color: #003876;
+    margin-bottom: 50px;
+    width: 100%;
+    
+}
+
+.top-header-wrap {
+    margin: 0 auto;
+    padding: 21px 0 35px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1240px;
+}
+
+.top-header-box {
+    float: right;
+}
+
+.common-link-box {
+    float: left;
+    margin: 7px 0 0 0;
+}
+
+.common-link-box li {
+    position: relative;
+    float: left;
+    margin: 0 13px 0 0;
+    padding: 0 15px 0 0;
+    line-height: 1;
+}
+
+.common-link-box li:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #003876;
+}
+
+.common-link-box li a {
+    font-size: 12px;
+    color: #fff;
+}
+
+.top-header-box:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.top-header-wrap:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.bottom-header-wrap, footer {
+    background-color: #003876;
+}
+
+footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    scroll-behavior: smooth;
+    color: #fff;
+    border-bottom: 5px solid #1459a6;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    bottom: 0;
+}
+
+.bottom-header-box {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1240px;
+    box-sizing: border-box;
+    color: #000000;
+}
+
+.bottom-header-box h1 {
+    float: left;
+    margin: -13px 0 0 0;
+    line-height: 10px;
+    font-size: 70px;
+    font-family: 'Gaegu', cursive;
+}
+
+.bottom-header-box h1 a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.gnb {
+    position: relative;
+    float: right;
+    width: 460px;
+    color: #000000;
+}
+
+.gnb>ul {
+    color: #000000;
+}
+
+.gnb>ul>li {
+    float: left;
+    padding: 0 4.5%;
+    height: 52px;
+    color: #000000;
+}
+
+.gnb>ul:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
+
+.bottom-header-box:after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
 
@@ -31,8 +172,11 @@ button {
 }
 
 .content-wrap {
-    width: 80vw;
-    height: 80vh;
+    margin: 0 auto 50px auto;
+    width: 100%;
+    max-width: 1240px;
+    box-sizing: border-box;
+    min-height: 700px;
 }
 
 .page-title {
@@ -495,3 +639,4 @@ input[name=board_cont] {
     width: 100%;
     background-color: #e7e7e7;
 }
+

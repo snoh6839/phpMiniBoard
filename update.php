@@ -1,6 +1,7 @@
 <?php
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
 define("URL_DB", DOC_ROOT . "board/db/db_common.php");
+define("URL_HEADER", DOC_ROOT . "board/header.php");
 include_once(URL_DB);
 
 $http_method = $_SERVER["REQUEST_METHOD"];
@@ -46,6 +47,9 @@ if ($http_method === "GET") {
 </head>
 
 <body>
+    <header>
+        <?php include_once(URL_HEADER) ?>
+    </header>
     <div class="content-wrap">
         <div class="title">
             <div class="page-title">
@@ -53,7 +57,7 @@ if ($http_method === "GET") {
                 <p></p>
             </div>
         </div>
-        <form method="post" class="content">
+        <form method="post" class="content" name="enter_pr" onkeydown="return event.key != 'Enter';">
             <input type="hidden" name="boardMode" value="view">
             <div class="ko board view ys-board">
                 <div class="board-wrap">
@@ -116,7 +120,10 @@ if ($http_method === "GET") {
             </div>
         </form>
     </div>
-
+    <footer>
+        &copy; All Rights Deserved.
+        <br> Designed by Subin Noh.
+    </footer>
 </body>
 
 </html>

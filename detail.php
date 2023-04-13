@@ -1,6 +1,7 @@
 <?php
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
 define("URL_DB", DOC_ROOT . "board/db/db_common.php");
+define("URL_HEADER", DOC_ROOT . "board/header.php");
 include_once(URL_DB);
 
 $http_method = $_SERVER["REQUEST_METHOD"];
@@ -45,6 +46,9 @@ if ($http_method === "GET") {
 </head>
 
 <body>
+    <header>
+        <?php include_once(URL_HEADER) ?>
+    </header>
     <div class="content-wrap">
         <div class="title">
             <div class="page-title">
@@ -116,7 +120,10 @@ if ($http_method === "GET") {
             </div>
         </div>
     </div>
-
+    <footer>
+        &copy; All Rights Deserved.
+        <br> Designed by Subin Noh.
+    </footer>
 </body>
 
 </html>
