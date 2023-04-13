@@ -27,6 +27,15 @@ $arr_prepare =
 $result_pasing = select_board_info_paging($arr_prepare);
 // print_r($result_cnt);
 
+$param_arr = array(
+    "search_query" => $search_query,
+    "limit_num" => $limit_num,
+    "offset" => $offset
+);
+
+$search_result = search_board_info($param_arr);
+
+
 ?>
 
 <!DOCTYPE html>
