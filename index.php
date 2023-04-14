@@ -133,6 +133,7 @@ if (isset($_POST['search_query']) && !empty($_POST['search_query'])) {
                         </table>
                     </div>
                     <ul class="paging-wrap">
+
                         <?php
                         $prevPage = ($page == 1) ? $num_pages : $page - 1;
                         $nextPage = ($page == $num_pages) ? 1 : $page + 1;
