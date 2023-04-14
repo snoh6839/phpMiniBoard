@@ -5,7 +5,9 @@
 
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
 define("URL_DB", DOC_ROOT . "board/db/db_common.php");
+// define("URL_DB", "C:\Apache24\htdocs\board\db\db_common.php");
 define("URL_HEADER", DOC_ROOT . "board/header.php");
+// define("URL_HEADER", "C:\Apache24\htdocs\board\header.php");
 include_once(URL_DB);
 
 if (array_key_exists("page_num", $_GET)) {
@@ -24,10 +26,17 @@ $arr_prepare =
     array(
         "limit_num" => $limit_num, "offset" => $offset
     );
-$result_pasing = select_board_info_paging($arr_prepare);
+$board_list = select_board_info_paging($arr_prepare);
 // print_r($result_cnt);
 
-
+if (isset($_POST['search_query']) && !empty($_POST['search_query'])) {
+    $search_word = $_POST['search_query'];
+    $search_arr = array("search_query" => $search_word, "limit_num" => $limit_num, "offset" => $offset);
+    $board_list = search_board_info($search_arr);
+} else {
+    $arr_prepare = array("limit_num" => $limit_num, "offset" => $offset);
+    $board_list = select_board_info_paging($arr_prepare);
+}
 
 ?>
 
@@ -96,7 +105,7 @@ $result_pasing = select_board_info_paging($arr_prepare);
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($result_pasing as $recode) {
+                                foreach ($board_list as $recode) {
                                 ?>
                                     <tr class="  ">
                                         <td class="">

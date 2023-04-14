@@ -25,33 +25,40 @@ function db_conn( &$param_conn )
 
 }
 
-function select_board_info_paging( &$param_arr ){
+
+
+function select_board_info_paging(&$param_arr)
+{
     $sql =
         " select "
-            . " board_no "
-            ." , board_title "
-            ." , create_date "
-        ." from "
-            ." board_info "
-        ." where "
-            ." del_flag = '0' "
-        ." order by "
-            ." board_no  DESC "
-        ." limit :limit_num offset :offset "
-        ;
-    
+        . " board_no "
+        . " , board_title "
+        . " , create_date "
+        . " from "
+        . " board_info "
+        . " where "
+        . " del_flag = '0' ";
+
+    // 검색어가 있다면 검색 조건 추가
+    if (isset($param_arr["search_query"]) && $param_arr["search_query"] !== "") {
+        $sql .= " and board_title like '%" . $param_arr["search_query"] . "%'";
+    }
+
+    $sql .=
+        " order by "
+        . " board_no  DESC "
+        . " limit :limit_num offset :offset ";
+
     $arr_prepare =
         array(
-            ":limit_num" => $param_arr["limit_num"]
-            ,":offset" => $param_arr["offset"]
+            ":limit_num" => $param_arr["limit_num"], ":offset" => $param_arr["offset"]
         );
     // $conn = null;
-    try{
-        db_conn( $conn );
-        $stmt = $conn->prepare( $sql );
-        $stmt->execute( $arr_prepare );
+    try {
+        db_conn($conn);
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($arr_prepare);
         $result = $stmt->fetchAll();
-
     } catch (EXCEPTION $e) {
         return $e->getMessage();
         // return false;
@@ -60,9 +67,8 @@ function select_board_info_paging( &$param_arr ){
     }
 
     return $result;
-
-    
 }
+
 
 function select_board_info_cnt()
 {
@@ -257,19 +263,20 @@ function search_board_info(&$param_arr)
             ":search_query" => $search_query
         );
 
+    $conn = null;
     try {
         db_conn($conn);
+        $conn->beginTransaction();
         $stmt = $conn->prepare($sql);
         $stmt->execute($arr_prepare);
-        $result = $stmt->fetchAll();
+        $result_cnt = $stmt->rowCount();
+        $conn->commit();
     } catch (EXCEPTION $e) {
+        $conn->rollback();
         return $e->getMessage();
-        // return false;
     } finally {
         $conn = null;
     }
-
-    return $result;
 }
 
 
