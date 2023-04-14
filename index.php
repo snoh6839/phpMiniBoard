@@ -55,6 +55,23 @@ $result_pasing = select_board_info_paging($arr_prepare);
                 <h3>자유 게시판 미니 프로젝트</h3>
             </div>
         </div>
+        <form method="post">
+            <fieldset class="content-search-wrap">
+                <legend class="hide">게시글 검색</legend>
+                <input type="hidden" name="mode" value="list">
+                <div>
+                    <label for="search_key" class="hide">검색분류선택</label>
+                    <input type="hidden" name="search_key" id="search_key">
+                    <select class="board-selectbox board-selectbox-title">
+                        <option selected class="searchOption" title="제목" data-value="board_title">제목</option>
+                        <option class="searchOption" title="내용" data-value="board_cont">내용</option>
+                    </select>
+                </div>
+                <label for="search_val" class="hide">검색어</label>
+                <input type="text" id="search_val" name="srSearchVal" value="" placeholder="검색어를 입력해 주세요">
+                <button type="submit" class="board-search-btn">검색</button>
+            </fieldset>
+        </form>
         <div class="content">
             <input type="hidden" name="boardMode" value="list">
             <div class="board list ys-board">

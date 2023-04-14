@@ -33,10 +33,10 @@ function CustomAlert(){
 let customAlert = new CustomAlert();
 
 
-document.enter_pr.addEventListener("keydown", evt => {
-    if ((evt.keyCode || evt.which) === 13) {
-        evt.preventDefault();
-    }
+// document.enter_pr.addEventListener("keydown", evt => {
+//     if ((evt.keyCode || evt.which) === 13) {
+//         evt.preventDefault();
+//     }
     
-    if (evt.code === "Enter") evt.preventDefault();
-});
+//     if (evt.code === "Enter") evt.preventDefault();
+// });

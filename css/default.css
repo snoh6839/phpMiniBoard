@@ -171,6 +171,118 @@ button {
     border: none;
 }
 
+fieldset,
+img {
+    border: none;
+}
+
+.content-search-wrap {
+    margin: 0 0 20px 0;
+    text-align: right;
+}
+
+.board form legend,
+.board .hidden {
+    position: absolute !important;
+    text-indent: -99999px;
+    width: 0 !important;
+    height: 0 !important;
+    top: -99999px;
+    left: -99999px;
+}
+
+img,
+input,
+select,
+textarea {
+    vertical-align: middle;
+}
+
+.board-selectbox {
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    width: 145px;
+    text-align: left;
+    vertical-align: middle;
+    caret-color: transparent;
+    margin-bottom: 10px;
+}
+
+.board-selectbox-title {
+    display: inline-block;
+    padding: 9px 10px;
+    font-weight: 300;
+    width: 30%;
+    border: 1px solid #d0d0d0;
+    /* background: #fff url(https://yslis.yonsei.ac.kr/_res/board/img/board/btn_select_open.gif) no-repeat right 12px center; */
+    color: #666;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    caret-color: transparent;
+}
+
+.board-selectbox-title:visited {
+    color: #666;
+}
+
+
+.board-selectbox .searchOption {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d0d0d0;
+    border-top: none;
+    background-color: #fff;
+    font-weight: 300;
+    box-sizing: border-box;
+    color: #666;
+    box-shadow: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+input[name="srSearchVal"] {
+    display: inline-block;
+    margin: 0;
+    padding: 13px 10px 12px;
+    width: 40%;
+    border: 1px solid #d0d0d0;
+    font-weight: 300;
+    font-size: 15px;
+    color: #666;
+    box-sizing: border-box;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+}
+
+.board-search-btn {
+    width: 90px;
+    padding: 12px 10px;
+    border: none;
+    background-color: #939393;
+    font-size: 15px;
+    color: #fff;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+.content-search-wrap:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
 .content-wrap {
     margin: 0 auto 50px auto;
     width: 100%;
