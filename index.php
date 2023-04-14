@@ -36,7 +36,7 @@ if (isset($_POST['search_query']) && !empty($_POST['search_query'])) {
     // , "offset" => $offset
 );
     $board_list = search_board_info($search_arr);
-    var_dump($board_list);
+    // var_dump($board_list);
 
 } else {
     $arr_prepare = array("limit_num" => $limit_num, "offset" => $offset);
@@ -77,14 +77,6 @@ if (isset($_POST['search_query']) && !empty($_POST['search_query'])) {
             <fieldset class="content-search-wrap">
                 <legend class="hide">게시글 검색</legend>
                 <input type="hidden" name="mode" value="list">
-                <div>
-                    <label for="search_key" class="hide">검색분류선택</label>
-                    <input type="hidden" name="search_key" id="search_key">
-                    <select class="board-selectbox board-selectbox-title">
-                        <option selected class="searchOption" title="제목" data-value="board_title">제목</option>
-                        <option class="searchOption" title="내용" data-value="board_cont">내용</option>
-                    </select>
-                </div>
                 <label for="search_val" class="hide">검색어</label>
                 <input type="text" id="search_val" name="search_query" value="" placeholder="검색어를 입력해 주세요">
                 <button type="submit" class="board-search-btn">검색</button>

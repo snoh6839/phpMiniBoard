@@ -292,18 +292,19 @@ function search_board_info(&$param_arr)
     . " board_info "
     . " WHERE "
     . " del_flag = '0' "
-        . " AND (board_title LIKE :search_query "
-        . " OR board_cont LIKE :search_query) "
-        . " ORDER BY "
-        . " board_no DESC ";
+    . " AND (board_title LIKE CONCAT('%', :search_query1, '%') "
+    . " OR board_cont LIKE CONCAT('%', :search_query2, '%') ) "
+    . " ORDER BY "
+    . " board_no DESC ";
 
     $conn = null;
     try {
         db_conn($conn);
 
         $stmt = $conn->prepare($sql);
-        $search_query = "%" . $param_arr["search_query"] . "%";
-        $stmt->bindParam(":search_query", $search_query);
+        $search_query = $param_arr["search_query"];
+        $stmt->bindParam(":search_query1", $search_query);
+        $stmt->bindParam(":search_query2", $search_query);
         $stmt->execute();
 
         $result_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -313,15 +314,12 @@ function search_board_info(&$param_arr)
         $conn = null;
     }
 
-    echo $stmt->queryString;
-    print_r($stmt->debugDumpParams());
-
     return $result_arr;
 }
 //TODO : test start
-$arr = array("search_query" => "제목");
-$re = search_board_info($arr);
-var_dump($re);
+// $arr = array("search_query" => "제목");
+// $result_arr = search_board_info($arr);
+// var_dump($result_arr);
 
 //TODO : test end
 
