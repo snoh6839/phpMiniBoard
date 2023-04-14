@@ -25,33 +25,40 @@ function db_conn( &$param_conn )
 
 }
 
-function select_board_info_paging( &$param_arr ){
+
+
+function select_board_info_paging(&$param_arr)
+{
     $sql =
         " select "
-            . " board_no "
-            ." , board_title "
-            ." , create_date "
-        ." from "
-            ." board_info "
-        ." where "
-            ." del_flag = '0' "
-        ." order by "
-            ." board_no  DESC "
-        ." limit :limit_num offset :offset "
-        ;
-    
+        . " board_no "
+        . " , board_title "
+        . " , create_date "
+        . " from "
+        . " board_info "
+        . " where "
+        . " del_flag = '0' ";
+
+    // 검색어가 있다면 검색 조건 추가
+    if (isset($param_arr["search_query"]) && $param_arr["search_query"] !== "") {
+        $sql .= " and board_title like '%" . $param_arr["search_query"] . "%'";
+    }
+
+    $sql .=
+        " order by "
+        . " board_no  DESC "
+        . " limit :limit_num offset :offset ";
+
     $arr_prepare =
         array(
-            ":limit_num" => $param_arr["limit_num"]
-            ,":offset" => $param_arr["offset"]
+            ":limit_num" => $param_arr["limit_num"], ":offset" => $param_arr["offset"]
         );
     // $conn = null;
-    try{
-        db_conn( $conn );
-        $stmt = $conn->prepare( $sql );
-        $stmt->execute( $arr_prepare );
+    try {
+        db_conn($conn);
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($arr_prepare);
         $result = $stmt->fetchAll();
-
     } catch (EXCEPTION $e) {
         return $e->getMessage();
         // return false;
@@ -60,9 +67,8 @@ function select_board_info_paging( &$param_arr ){
     }
 
     return $result;
-
-    
 }
+
 
 function select_board_info_cnt()
 {
@@ -236,44 +242,84 @@ function write_board_info(&$param_arr)
 
 function search_board_info(&$param_arr)
 {
+    // $sql =
+    // " SELECT "
+    // . " board_no "
+    //     . " , board_title "
+    //     . " , create_date "
+    //     . " FROM "
+    //     . " board_info "
+    //     . " WHERE "
+    //     . " del_flag = '0' "
+    //     . " AND (board_title LIKE '%{$param_arr["search_query"]}%' OR board_cont LIKE '%{$param_arr["search_query"]}%') "
+    //     . " ORDER BY "
+    //     . " board_no DESC ";
+    //     // . " LIMIT :limit_num OFFSET :offset ";
+
+    // // $search_query = isset($param_arr["search_query"]) ? "%" . $param_arr["search_query"] . "%" : "%";
+
+
+    // $arr_prepare =
+    //     array(
+    //         ":search_query" => "%" . $param_arr["search_query"] . "%"
+    //         // , ":limit_num" => $param_arr["limit_num"]
+    //         // , ":offset" => $param_arr["offset"]
+    //     );
+
+    // $conn = null;
+    // try {
+    //     db_conn($conn);
+
+    //     $stmt = $conn->prepare($sql);
+    //     $stmt->execute($arr_prepare);
+    //     // $result_cnt = $stmt->rowCount();
+    //     $result_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // } catch (EXCEPTION $e) {
+
+    //     return $e->getMessage();
+    // } finally {
+    //     $conn = null;
+    // }
+    // return $result_arr;
+
     $sql =
-        " SELECT "
-        . " board_no "
-        . " , board_title "
-        . " , create_date "
-        . " FROM "
-        . " board_info "
-        . " WHERE "
-        . " del_flag = '0' "
-        . " AND (board_title LIKE :search_query OR board_cont LIKE :search_query) "
-        . " ORDER BY "
-        . " board_no DESC "
-        . " LIMIT :limit_num OFFSET :offset ";
+    " SELECT "
+    . " board_no "
+    . " , board_title "
+    . " , create_date "
+    . " FROM "
+    . " board_info "
+    . " WHERE "
+    . " del_flag = '0' "
+    . " AND (board_title LIKE CONCAT('%', :search_query1, '%') "
+    . " OR board_cont LIKE CONCAT('%', :search_query2, '%') ) "
+    . " ORDER BY "
+    . " board_no DESC ";
 
-    $search_query = "%" . $param_arr["search_query"] . "%";
-
-    $arr_prepare =
-        array(
-            ":search_query" => $search_query
-        );
-
+    $conn = null;
     try {
         db_conn($conn);
+
         $stmt = $conn->prepare($sql);
-        $stmt->execute($arr_prepare);
-        $result = $stmt->fetchAll();
-    } catch (EXCEPTION $e) {
+        $search_query = $param_arr["search_query"];
+        $stmt->bindParam(":search_query1", $search_query);
+        $stmt->bindParam(":search_query2", $search_query);
+        $stmt->execute();
+
+        $result_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
         return $e->getMessage();
-        // return false;
     } finally {
         $conn = null;
     }
 
-    return $result;
+    return $result_arr;
 }
-
-
 //TODO : test start
+// $arr = array("search_query" => "제목");
+// $result_arr = search_board_info($arr);
+// var_dump($result_arr);
 
 //TODO : test end
 

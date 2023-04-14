@@ -4,8 +4,10 @@
 // include_once( URL_DB );
 
 define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
-define("URL_DB", DOC_ROOT . "board/db/db_common.php");
-define("URL_HEADER", DOC_ROOT . "board/header.php");
+// define("URL_DB", DOC_ROOT . "board/db/db_common.php");
+define("URL_DB", "C:\Apache24\htdocs\board\db\db_common.php");
+// define("URL_HEADER", DOC_ROOT . "board/header.php");
+define("URL_HEADER", "C:\Apache24\htdocs\board\header.php");
 include_once(URL_DB);
 
 if (array_key_exists("page_num", $_GET)) {
@@ -24,9 +26,22 @@ $arr_prepare =
     array(
         "limit_num" => $limit_num, "offset" => $offset
     );
-$result_pasing = select_board_info_paging($arr_prepare);
+$board_list = select_board_info_paging($arr_prepare);
 // print_r($result_cnt);
 
+if (isset($_POST['search_query']) && !empty($_POST['search_query'])) {
+    $search_word = $_POST['search_query'];
+    $search_arr = array("search_query" => $search_word
+    // , "limit_num" => $limit_num
+    // , "offset" => $offset
+);
+    $board_list = search_board_info($search_arr);
+    // var_dump($board_list);
+
+} else {
+    $arr_prepare = array("limit_num" => $limit_num, "offset" => $offset);
+    $board_list = select_board_info_paging($arr_prepare);
+}
 
 
 ?>
@@ -62,14 +77,6 @@ $result_pasing = select_board_info_paging($arr_prepare);
             <fieldset class="content-search-wrap">
                 <legend class="hide">게시글 검색</legend>
                 <input type="hidden" name="mode" value="list">
-                <div>
-                    <label for="search_key" class="hide">검색분류선택</label>
-                    <input type="hidden" name="search_key" id="search_key">
-                    <select class="board-selectbox board-selectbox-title">
-                        <option selected class="searchOption" title="제목" data-value="board_title">제목</option>
-                        <option class="searchOption" title="내용" data-value="board_cont">내용</option>
-                    </select>
-                </div>
                 <label for="search_val" class="hide">검색어</label>
                 <input type="text" id="search_val" name="search_query" value="" placeholder="검색어를 입력해 주세요">
                 <button type="submit" class="board-search-btn">검색</button>
@@ -96,7 +103,7 @@ $result_pasing = select_board_info_paging($arr_prepare);
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($result_pasing as $recode) {
+                                foreach ($board_list as $recode) {
                                 ?>
                                     <tr class="  ">
                                         <td class="">
@@ -126,6 +133,7 @@ $result_pasing = select_board_info_paging($arr_prepare);
                         </table>
                     </div>
                     <ul class="paging-wrap">
+
                         <?php
                         $prevPage = ($page == 1) ? $num_pages : $page - 1;
                         $nextPage = ($page == $num_pages) ? 1 : $page + 1;
