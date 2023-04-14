@@ -27,6 +27,17 @@ $arr_prepare =
 $result_pasing = select_board_info_paging($arr_prepare);
 // print_r($result_cnt);
 
+$search_query = $_POST['search_query'];
+
+$param_arr = array(
+    "search_query" => $search_query,
+    "limit_num" => $limit_num,
+    "offset" => $offset
+);
+
+$search_result = search_board_info($param_arr);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +66,58 @@ $result_pasing = select_board_info_paging($arr_prepare);
                 <h3>자유 게시판 미니 프로젝트</h3>
             </div>
         </div>
+        <form method="POST" action="search.php">
+          <input type="text" name="search_query" placeholder="Search...">
+          <button type="submit">Search</button>
+        </form>
+        <div id="search-result"></div>
+
+        <!-- JavaScript code for submitting the search query via AJAX -->
+        <script>
+            // Handle form submission
+            document.querySelector('#search-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // prevent form submission
+
+                // Get search query
+                var searchQuery = this.search_query.value;
+
+                // Send AJAX request to PHP script
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'search.php');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Display search result on the page
+                        var resultDiv = document.querySelector('#search-result');
+                        resultDiv.innerHTML = xhr.responseText;
+                    }
+                    else {
+                        console.error('AJAX request failed with status ' + xhr.status);
+                    }
+                };
+                xhr.send('search_query=' + encodeURIComponent(searchQuery));
+            });
+        </script>
+        
+        <?php
+            $searchQuery = isset($_POST['search_query']) ? $_POST['search_query'] : '';
+
+            // Call the search function
+            $param_arr = array(
+                "search_query" => $searchQuery,
+                "limit_num" => 5,
+                "offset" => 0
+            );
+            $searchResult = search_board_info($param_arr);
+
+            // Display search result
+            foreach ($searchResult as $row) {
+                echo '<p>' . $row['board_title'] . '</p>';
+                echo '<p>' . $row['create_date'] . '</p>';
+                // ... add more HTML code to display other columns ...
+            }
+        ?>
+
         <form method="post">
             <fieldset class="content-search-wrap">
                 <legend class="hide">게시글 검색</legend>
